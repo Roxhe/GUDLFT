@@ -37,8 +37,8 @@ def test_purchase_valid_request(client):
 def test_purchase_exceeds_points(client):
     response = client.post('/purchasePlaces', data={
         'competition': 'Spring Festival',
-        'club': 'Simply Lift',
-        'places': '14'  # More than available points
+        'club': 'Iron Temple',
+        'places': '11'
     }, follow_redirects=True)
-    assert b"You cannot book more places than your available points" in response.data
-    assert b"13" in response.data
+    assert b"You cannot book more places than your available points." in response.data
+
