@@ -57,3 +57,9 @@ def test_purchase_outranged(client):
         'places': '13'
     }, follow_redirects=True)
     assert b"You can only reserve between 1 and 12 places." in response.data
+
+
+def test_book_past_competition(client):
+    response = client.get('/book/Spring Festival/Simply Lift', follow_redirects=True)
+    assert b"This competition has already taken place." in response.data
+    assert response.status_code == 200
