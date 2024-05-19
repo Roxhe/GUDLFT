@@ -35,7 +35,7 @@ def create_app(config=None):
         if club is None:
             flash("Sorry, that email wasn't found.")
             return redirect(url_for('index'))
-        return render_template('welcome.html',club=club,competitions=competitions, current_datetime=datetime.now())
+        return render_template('welcome.html', club=club, competitions=competitions, clubs=clubs, current_datetime=datetime.now())
 
     @app.route('/book/<competition>/<club>')
     def book(competition, club):
@@ -49,7 +49,7 @@ def create_app(config=None):
                                    current_datetime=datetime.now())
         else:
             flash("Something went wrong-please try again")
-            return render_template('welcome.html', club=club, competitions=competitions,
+            return render_template('welcome.html', club=foundClub, competitions=competitions, clubs=clubs,
                                    current_datetime=datetime.now())
 
     @app.route('/purchasePlaces', methods=['POST'])
@@ -67,12 +67,10 @@ def create_app(config=None):
                 competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
                 club['points'] = int(club['points']) - placesRequired
                 flash('Great-booking complete!')
-            return render_template('welcome.html', club=club, competitions=competitions, current_datetime=datetime.now())
+            return render_template('welcome.html', club=club, competitions=competitions, clubs=clubs, current_datetime=datetime.now())
         else:
             flash("Something went wrong-please try again.")
-            return render_template('welcome.html', club=club, competitions=competitions, current_datetime=datetime.now())
-
-    # TODO: Add route for points display
+            return render_template('welcome.html', club=club, competitions=competitions, clubs=clubs, current_datetime=datetime.now())
 
     @app.route('/logout')
     def logout():

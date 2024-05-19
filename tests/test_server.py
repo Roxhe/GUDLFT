@@ -63,3 +63,15 @@ def test_book_past_competition(client):
     response = client.get('/book/Spring Festival/Simply Lift', follow_redirects=True)
     assert b"This competition has already taken place." in response.data
     assert response.status_code == 200
+
+
+def test_show_summary_clubs_display(client):
+    valid_email = 'john@simplylift.co'
+    response = client.post('/showSummary', data={'email': valid_email})
+    assert response.status_code == 200
+    assert b"Clubs and Points" in response.data
+    assert b"Simply Lift" in response.data
+    assert b"13 points" in response.data
+    assert b"Iron Temple" in response.data
+    assert b"4 points" in response.data
+    
