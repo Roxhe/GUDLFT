@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,7 +19,15 @@
     {% endwith %}
 
     Points available: {{ club['points'] }}
-     <h3>Competitions:</h3>
+
+    <h3>Clubs and Points:</h3>
+    <ul>
+        {% for c in clubs %}
+            <li>{{ c['name'] }}: {{ c['points'] }} points</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Competitions:</h3>
     <ul>
         {% for comp in competitions %}
             <li>
